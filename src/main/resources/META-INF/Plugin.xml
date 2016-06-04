@@ -2,4 +2,8 @@
   <id>com.github.kassak.geo-support</id>
   <name>geo-support</name>
   <description>Support of geographic data (WKT, WKB, ...)</description>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="com.github.kassak.geo.wkt.WktFileType$Factory"/>
+  </extensions>
 </idea-plugin>
