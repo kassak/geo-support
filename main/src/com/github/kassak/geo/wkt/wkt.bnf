@@ -1,0 +1,26 @@
+{
+  parserClass = "com.github.kassak.geo.wkt.WktParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Wkt"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.kassak.geo.wkt.psi"
+  psiImplPackage="com.github.kassak.geo.wkt.psi.impl"
+
+  elementTypeHolderClass="com.github.kassak.geo.wkt.WktTypes"
+  elementTypeClass="com.github.kassak.geo.wkt.WktElementType"
+  tokenTypeClass="com.github.kassak.geo.wkt.WktTokenType"
+
+  tokens = [
+    LPAREN = "("
+    RPAREN = ")"
+    COMMA = ","
+    WORD = "x"
+  ]
+}
+
+root ::= any_geometry_ctor*
+private any_geometry_ctor ::= point_ctor | line_ctor
+point_ctor ::= POINT '(' NUMBER (',' NUMBER)* ')'
+line_ctor ::= LINE '(' POINT (',' POINT)* ')'

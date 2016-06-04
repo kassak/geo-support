@@ -7,8 +7,24 @@ allprojects {
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
 
+  sourceSets {
+    main {
+      java.srcDirs 'main/src', 'main/gen'
+      resources.srcDirs 'main/resources'
+    }
+    test {
+      java.srcDir 'tests'
+    }
+  }
   apply plugin: 'org.jetbrains.intellij'
   intellij {
     pluginName 'geo-support'
+  }
+
+  apply plugin: 'idea'
+  idea {
+    module {
+      generatedSourceDirs += file('main/gen')
+    }
   }
 }

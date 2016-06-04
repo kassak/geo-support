@@ -2,3 +2,4 @@
 .idea/*
 build/*
 staging/*
+main/gen/*
