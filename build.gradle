@@ -1,0 +1,14 @@
+plugins {
+  id 'org.jetbrains.intellij' version "0.1.6"
+}
+
+allprojects {
+  apply plugin: 'java'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  apply plugin: 'org.jetbrains.intellij'
+  intellij {
+    pluginName 'geo-support'
+  }
+}

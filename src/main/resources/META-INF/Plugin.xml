@@ -1,0 +1,5 @@
+<idea-plugin url="https://github.com/kassak/geo-support" version="1">
+  <id>com.github.kassak.geo-support</id>
+  <name>geo-support</name>
+  <description>Support of geographic data (WKT, WKB, ...)</description>
+</idea-plugin>
