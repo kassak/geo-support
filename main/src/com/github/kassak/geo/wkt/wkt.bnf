@@ -11,16 +11,46 @@
   elementTypeHolderClass="com.github.kassak.geo.wkt.WktTypes"
   elementTypeClass="com.github.kassak.geo.wkt.WktElementType"
   tokenTypeClass="com.github.kassak.geo.wkt.WktTokenType"
+  parserUtilClass="com.github.kassak.geo.wkt.WktGeneratedParserUtil"
+
+  pin(".*_ctor") = 1
+  pin(".*_recover") = 0
+  consumeTokenMethod(".*_recover") = "fast"
 
   tokens = [
     LPAREN = "("
     RPAREN = ")"
+    LBRACKET = "["
+    RBRACKET = "]"
+    LBRACE = "{"
+    RBRACE = "|"
     COMMA = ","
-    WORD = "x"
+    DOT = "."
+    MINUS = "-"
+    PLUS = "+"
+    NUMBER = "NUMBER"
+    SCIENTIFIC = "SCIENTIFIC"
+    IDENT = "IDENT"
+    STRING = "STRING"
   ]
 }
 
 root ::= any_geometry_ctor*
+
+integer ::= NUMBER {name="integer"}
+numeric ::= ['+' | '-'] <<parseFloatTerm>> {name="float"}
+private attr_list_recover ::= !(')' | ']')
+private comma_attr_list_item_recover ::= attr_list_recover !','
+meta private attrs_content ::= <<attrs>> {recoverWhile=attr_list_recover}
+meta private attrs_inner ::= <<left>> <<attrs_content <<attrs>>>> <<right>> {pin=1}
+meta attributes ::=
+    <<attrs_inner '(' <<attrs>> ')'>>
+  | <<attrs_inner '[' <<attrs>> ']'>>
+meta private comma_list ::= <<item>> (',' <<item>>) {pin(".*")=1}
+meta private comma_list_attrs_item ::= <<item>> {recoverWhile=comma_attr_list_item_recover}
+meta private comma_list_attrs ::= <<attributes <<comma_list <<comma_list_attrs_item <<item>>>>>>>>
+
 private any_geometry_ctor ::= point_ctor | line_ctor
-point_ctor ::= POINT '(' NUMBER (',' NUMBER)* ')'
-line_ctor ::= LINE '(' POINT (',' POINT)* ')'
+private point_2d_attrs ::= <<attributes {numeric numeric}>>
+point_ctor ::= POINT point_2d_attrs
+line_ctor ::= LINE <<comma_list_attrs point_ctor>>

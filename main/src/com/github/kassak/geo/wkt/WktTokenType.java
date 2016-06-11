@@ -8,9 +8,4 @@ public class WktTokenType extends IElementType {
   public WktTokenType(@NotNull @NonNls String debugName) {
     super(debugName, WktLanguage.INSTANCE);
   }
-
-  @Override
-  public String toString() {
-    return "WktToken." + super.toString();
-  }
 }
