@@ -32,6 +32,7 @@ allprojects {
     }
     test {
       java.srcDir 'tests/src'
+      resources.srcDirs 'tests/testData'
     }
   }
   apply plugin: 'org.jetbrains.intellij'

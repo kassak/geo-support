@@ -9,7 +9,7 @@ public class WktParserTest extends ParsingTestCase {
 
   @Override
   protected String getTestDataPath() {
-    return "testData";
+    return "tests/testData";
   }
 
   public void testSimple() { doTest(true); }

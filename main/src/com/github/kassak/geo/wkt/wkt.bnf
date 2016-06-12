@@ -13,7 +13,7 @@
   tokenTypeClass="com.github.kassak.geo.wkt.WktTokenType"
   parserUtilClass="com.github.kassak.geo.wkt.WktGeneratedParserUtil"
 
-  pin(".*_ctor") = 1
+  pin(".*_tagged_text") = 1
   pin(".*_recover") = 0
   consumeTokenMethod(".*_recover") = "fast"
 
@@ -35,7 +35,7 @@
   ]
 }
 
-root ::= any_geometry_ctor*
+root ::= any_geometry_tagged_text*
 
 integer ::= NUMBER {name="integer"}
 numeric ::= ['+' | '-'] <<parseFloatTerm>> {name="float"}
@@ -46,11 +46,55 @@ meta private attrs_inner ::= <<left>> <<attrs_content <<attrs>>>> <<right>> {pin
 meta attributes ::=
     <<attrs_inner '(' <<attrs>> ')'>>
   | <<attrs_inner '[' <<attrs>> ']'>>
-meta private comma_list ::= <<item>> (',' <<item>>) {pin(".*")=1}
+meta private comma_list ::= <<item>> (',' <<item>>)* {pin(".*")=1}
 meta private comma_list_attrs_item ::= <<item>> {recoverWhile=comma_attr_list_item_recover}
 meta private comma_list_attrs ::= <<attributes <<comma_list <<comma_list_attrs_item <<item>>>>>>>>
 
-private any_geometry_ctor ::= point_ctor | line_ctor
-private point_2d_attrs ::= <<attributes {numeric numeric}>>
-point_ctor ::= POINT point_2d_attrs
-line_ctor ::= LINE <<comma_list_attrs point_ctor>>
+private numeric_2 ::= numeric numeric
+private numeric_3 ::= numeric numeric numeric
+private numeric_4 ::= numeric numeric numeric numeric
+
+private any_geometry_tagged_text ::=
+    <<geometry_tagged_text {}   numeric_2>>
+  | <<geometry_tagged_text {Z}  numeric_3>>
+  | <<geometry_tagged_text {M}  numeric_3>>
+  | <<geometry_tagged_text {ZM} numeric_4>>
+
+private meta geometry_tagged_text ::=
+    <<point_tagged_text <<tag>> <<coord>>>>
+  | <<linestring_tagged_text <<tag>> <<coord>>>>
+  | <<polygon_tagged_text <<tag>> <<coord>>>>
+  | <<polyhedralsurface_tagged_text <<tag>> <<coord>>>>
+  | <<triangle_tagged_text <<tag>> <<coord>>>>
+  | <<tin_tagged_text <<tag>> <<coord>>>>
+  | <<multipoint_tagged_text <<tag>> <<coord>>>>
+  | <<multilinestring_tagged_text <<tag>> <<coord>>>>
+  | <<multipolygon_tagged_text <<tag>> <<coord>>>>
+  | <<geometrycollection_tagged_text <<tag>> <<coord>>>>
+
+empty_set ::= EMPTY
+meta point_tagged_text ::= POINT <<tag>> <<point_text <<coord>>>>
+meta linestring_tagged_text ::= LINESTRING <<tag>> <<linestring_text <<coord>>>>
+meta polygon_tagged_text ::= POLYGON <<tag>> <<polygon_text <<coord>>>>
+meta polyhedralsurface_tagged_text ::= POLYHEDRALSURFACE <<tag>> <<polyhedralsurface_text <<coord>>>>
+meta triangle_tagged_text ::= TRIANGLE <<tag>> <<polygon_text <<coord>>>>
+meta tin_tagged_text ::= TIN <<tag>> <<polyhedralsurface_text <<coord>>>>
+meta multipoint_tagged_text ::= MULTIPOINT <<tag>> <<multipoint_text <<coord>>>>
+meta multilinestring_tagged_text ::= MULTILINESTRING <<tag>> <<multilinestring_text <<coord>>>>
+meta multipolygon_tagged_text ::= MULTIPOLYGON <<tag>> <<multipolygon_text <<coord>>>>
+meta geometrycollection_tagged_text ::= GEOMETRYCOLLECTION <<tag>> <<geometrycollection_text <<tag>> <<coord>>>>
+
+private meta point_text ::= empty_set
+  | <<attributes <<coord>>>>
+private meta linestring_text ::= empty_set
+  | <<comma_list_attrs <<coord>>>>
+private meta polygon_text ::= empty_set
+  | <<comma_list_attrs <<linestring_text <<coord>>>>>>
+private meta polyhedralsurface_text ::= empty_set
+  | <<comma_list_attrs <<polygon_text <<coord>>>>>>
+private meta multipoint_text ::= empty_set
+  | <<comma_list_attrs <<point_text <<coord>>>>>>
+private meta multilinestring_text ::= <<polygon_text <<coord>>>>
+private meta multipolygon_text ::= <<polyhedralsurface_text <<coord>>>>
+private meta geometrycollection_text ::= empty_set
+  | <<comma_list_attrs <<geometry_tagged_text <<tag>> <<coord>>>>>>
