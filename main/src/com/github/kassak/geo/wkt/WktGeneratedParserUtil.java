@@ -26,4 +26,8 @@ public class WktGeneratedParserUtil extends GeneratedParserUtilBase {
     }
     return numberParsed;
   }
+
+  public static boolean parsePrimitves(PsiBuilder builder, int level, Parser parser) {
+    return parseAsTree(ErrorState.get(builder), builder, level, DUMMY_BLOCK, true, parser, TRUE_CONDITION);
+  }
 }

@@ -35,7 +35,7 @@
   ]
 }
 
-root ::= any_geometry_tagged_text*
+root ::= <<parsePrimitves any_geometry_tagged_text>>
 
 integer ::= NUMBER {name="integer"}
 numeric ::= ['+' | '-'] <<parseFloatTerm>> {name="float"}

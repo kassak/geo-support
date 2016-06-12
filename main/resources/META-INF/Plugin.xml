@@ -6,5 +6,7 @@
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="com.github.kassak.geo.wkt.WktFileType$Factory"/>
     <lang.parserDefinition language="WKT" implementationClass="com.github.kassak.geo.wkt.WktParserDefinition"/>
+    <lang.braceMatcher language="WKT" implementationClass="com.github.kassak.geo.wkt.WktPairedBraceMatcher"/>
+    <lang.syntaxHighlighterFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktSyntaxHighlighter$Factory"/>
   </extensions>
 </idea-plugin>
