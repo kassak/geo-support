@@ -31,7 +31,7 @@ allprojects {
       resources.srcDirs 'main/resources'
     }
     test {
-      java.srcDir 'tests'
+      java.srcDir 'tests/src'
     }
   }
   apply plugin: 'org.jetbrains.intellij'
