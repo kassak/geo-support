@@ -42,6 +42,8 @@ INVALID_STRING = \"{STRING_CHAR}*
   "."               {return WktTypes.DOT;}
   "-"               {return WktTypes.MINUS;}
   "+"               {return WktTypes.PLUS;}
+  "="               {return WktTypes.EQUAL;}
+  ";"               {return WktTypes.SEMICOLON;}
   {STRING}          {return WktTypes.STRING;}
   {INVALID_STRING}  {return WktTypes.STRING;}
   {WHITE_SPACE}+    {return TokenType.WHITE_SPACE;}

@@ -8,14 +8,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class WktPairedBraceMatcher implements PairedBraceMatcher {
-  private static final BracePair[] ourBracePairs = new BracePair[]{
+  public static final BracePair[] BRACES = new BracePair[]{
     new BracePair(WktTypes.LPAREN, WktTypes.RPAREN, false),
     new BracePair(WktTypes.LBRACKET, WktTypes.RBRACKET, false)
   };
 
   @Override
   public BracePair[] getPairs() {
-    return ourBracePairs;
+    return BRACES;
   }
 
   @Override
