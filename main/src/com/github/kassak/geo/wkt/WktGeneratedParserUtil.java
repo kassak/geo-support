@@ -5,6 +5,7 @@ import com.intellij.lang.LighterASTNode;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.parser.GeneratedParserUtilBase;
 import com.intellij.openapi.util.Key;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import gnu.trove.TByteArrayList;
@@ -78,6 +79,7 @@ public class WktGeneratedParserUtil extends GeneratedParserUtilBase {
               marker = builder.mark();
             }
             String expectedText = ErrorState.get(builder).getExpectedText(builder);
+            expectedText = StringUtil.trimEnd(expectedText, ", ");
             skipCurrent(builder, level);
             marker.error(expectedText);
           }

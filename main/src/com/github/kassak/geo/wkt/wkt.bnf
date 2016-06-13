@@ -13,7 +13,8 @@
   tokenTypeClass="com.github.kassak.geo.wkt.WktTokenType"
   parserUtilClass="com.github.kassak.geo.wkt.WktGeneratedParserUtil"
 
-  pin(".*_tagged_text") = 1
+  extends("wkt_.*_geom") = wkt_geometry
+  pin("wkt_.*_geom") = 1
   pin(".*_recover") = 0
   consumeTokenMethod(".*_recover") = "fast"
 
@@ -37,7 +38,7 @@
   ]
 }
 
-root ::= <<parsePrimitives (emb_srid? any_geometry_tagged_text)>>
+root ::= <<parsePrimitives (emb_srid? wkt_geometry)>>
 
 integer ::= NUMBER {name="integer"}
 numeric ::= ['+' | '-'] <<parseFloatTerm>> {name="float"}
@@ -59,9 +60,9 @@ private numeric_4 ::= numeric numeric numeric numeric
 
 emb_srid ::= SRID '=' NUMBER ';' {pin=1}
 
-private any_geometry_tagged_text ::=
-    geometry_tagged_text
-  | wildcard_geometry_tagged_text
+wkt_geometry ::=
+    wkt_tagged_geom
+  | wkt_wildcard_geom
 
 private meta with_dim ::=
     ZM <<withDim '"ZM"' <<proceed>>>>
@@ -75,46 +76,61 @@ private dim_coord ::=
   | &<<dimIs "M">>  numeric_3
   | &<<dimIs "">>   numeric_2
 
-private geometry_tagged_text ::=
-    point_tagged_text
-  | linestring_tagged_text
-  | polygon_tagged_text
-  | polyhedralsurface_tagged_text
-  | triangle_tagged_text
-  | tin_tagged_text
-  | multipoint_tagged_text
-  | multilinestring_tagged_text
-  | multipolygon_tagged_text
-  | geometrycollection_tagged_text
+private wkt_tagged_geom ::=
+    wkt_point_geom
+  | wkt_line_string_geom
+  | wkt_polygon_geom
+  | wkt_polyhedral_surface_geom
+  | wkt_triangle_geom
+  | wkt_tin_geom
+  | wkt_multi_point_geom
+  | wkt_multi_line_string_geom
+  | wkt_multi_polygon_geom
+  | wkt_geometry_collection_geom
 
-empty_set ::= EMPTY
-point_tagged_text ::= POINT <<with_dim point_text>>
-linestring_tagged_text ::= LINESTRING <<with_dim linestring_text>>
-polygon_tagged_text ::= POLYGON <<with_dim polygon_text>>
-polyhedralsurface_tagged_text ::= POLYHEDRALSURFACE <<with_dim polyhedralsurface_text>>
-triangle_tagged_text ::= TRIANGLE <<with_dim polygon_text>>
-tin_tagged_text ::= TIN <<with_dim polyhedralsurface_text>>
-multipoint_tagged_text ::= MULTIPOINT <<with_dim multipoint_text>>
-multilinestring_tagged_text ::= MULTILINESTRING <<with_dim multilinestring_text>>
-multipolygon_tagged_text ::= MULTIPOLYGON <<with_dim multipolygon_text>>
-geometrycollection_tagged_text ::= GEOMETRYCOLLECTION <<with_dim geometrycollection_text>>
+wkt_empty_geom ::= EMPTY
+wkt_point_geom ::= POINT <<with_dim (
+    wkt_empty_geom | wkt_point_text
+    )>>
+wkt_line_string_geom ::= LINESTRING <<with_dim (
+    wkt_empty_geom | wkt_line_string_text
+    )>>
+wkt_polygon_geom ::= POLYGON <<with_dim (
+    wkt_empty_geom | wkt_polygon_text
+    )>>
+wkt_polyhedral_surface_geom ::= POLYHEDRALSURFACE <<with_dim (
+    wkt_empty_geom | <<comma_list_attrs wkt_implicit_polygon_geom>>
+    )>>
+wkt_triangle_geom ::= TRIANGLE <<with_dim (
+    wkt_empty_geom | wkt_polygon_text
+    )>>
+wkt_tin_geom ::= TIN <<with_dim (
+    wkt_empty_geom | <<comma_list_attrs wkt_implicit_polygon_geom>>
+    )>>
+wkt_multi_point_geom ::= MULTIPOINT <<with_dim (
+    wkt_empty_geom | <<comma_list_attrs wkt_implicit_point_geom>>
+    )>>
+wkt_multi_line_string_geom ::= MULTILINESTRING <<with_dim (
+    wkt_empty_geom | wkt_polygon_text
+    )>>
+wkt_multi_polygon_geom ::= MULTIPOLYGON <<with_dim (
+    wkt_empty_geom | <<comma_list_attrs wkt_implicit_polygon_geom>>
+    )>>
+wkt_geometry_collection_geom ::= GEOMETRYCOLLECTION <<with_dim (
+    wkt_empty_geom | <<comma_list_attrs wkt_tagged_geom>>
+    )>>
 
-private point_text ::= empty_set
-  | <<attributes dim_coord>>
-private linestring_text ::= empty_set
-  | <<comma_list_attrs dim_coord>>
-private polygon_text ::= empty_set
-  | <<comma_list_attrs linestring_text>>
-private polyhedralsurface_text ::= empty_set
-  | <<comma_list_attrs polygon_text>>
-private multipoint_text ::= empty_set
-  | <<comma_list_attrs point_text>>
-private multilinestring_text ::= polygon_text
-private multipolygon_text ::= polyhedralsurface_text
-private geometrycollection_text ::= empty_set
-  | <<comma_list_attrs geometry_tagged_text>>
+wkt_implicit_point_attr ::= dim_coord {elementType=attributes}
+wkt_implicit_no_paren_point_geom ::= wkt_implicit_point_attr {elementType=wkt_point_geom}
 
-wildcard_geometry_tagged_text ::=
-  unknown_identifier wildcard_geometry_text {pin=0}
-private wildcard_geometry_text ::= <<comma_list_attrs (wildcard_geometry_attr*)>>
-private wildcard_geometry_attr ::= numeric | STRING | any_geometry_tagged_text | wildcard_geometry_text
+private wkt_point_text ::= <<attributes dim_coord>>
+wkt_implicit_point_geom ::= wkt_point_text {elementType=wkt_point_geom}
+private wkt_line_string_text ::= <<comma_list_attrs wkt_implicit_no_paren_point_geom>>
+wkt_implicit_line_string_geom ::= wkt_line_string_text {elementType=wkt_line_string_geom}
+private wkt_polygon_text ::= <<comma_list_attrs wkt_implicit_line_string_geom>>
+wkt_implicit_polygon_geom ::= wkt_polygon_text {elementType=wkt_polygon_geom}
+
+wkt_wildcard_geom ::= unknown_identifier wkt_wildcard_geom_text {pin=0}
+private wkt_wildcard_geom_text ::= <<comma_list_attrs (wildcard_geometry_attr*)>>
+wkt_implicit_wildcard_geom ::= wkt_wildcard_geom_text {elementType=wkt_wildcard_geom}
+private wildcard_geometry_attr ::= numeric | STRING | wkt_geometry | wkt_implicit_wildcard_geom

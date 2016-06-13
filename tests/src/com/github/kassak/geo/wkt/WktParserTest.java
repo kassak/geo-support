@@ -17,4 +17,5 @@ public class WktParserTest extends ParsingTestCase {
   public void testFromEsri() { doTest(true); }
   public void testFromCreof() { doTest(true); }
   public void testMany() { doTest(true); }
+  public void testWiki() { doTest(true); }
 }
