@@ -8,8 +8,8 @@ import java.lang.reflect.Array;
 public class WktGeometryHolderImpl<T extends WktGeometry> extends WktGeometry {
   private final Class<T> mySubClass;
 
-  public WktGeometryHolderImpl(ASTNode node, Class<T> subClass) {
-    super(node);
+  public WktGeometryHolderImpl(ASTNode node, String type, Class<T> subClass) {
+    super(node, type);
     this.mySubClass = subClass;
   }
 

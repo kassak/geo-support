@@ -4,6 +4,6 @@ import com.intellij.lang.ASTNode;
 
 public class WktWildcard extends WktGeometry {
   public WktWildcard(ASTNode node) {
-    super(node);
+    super(node, "unknown");
   }
 }

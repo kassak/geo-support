@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class WktPoint extends WktGeometry {
   public WktPoint(ASTNode node) {
-    super(node);
+    super(node, "point");
   }
 
   @NotNull

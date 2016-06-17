@@ -4,6 +4,6 @@ import com.intellij.lang.ASTNode;
 
 public class WktMultiPolygon extends WktGeometryHolderImpl<WktPolygon> {
   public WktMultiPolygon(ASTNode node) {
-    super(node, WktPolygon.class);
+    super(node, "multi polygon", WktPolygon.class);
   }
 }

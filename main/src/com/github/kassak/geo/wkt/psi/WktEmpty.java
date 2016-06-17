@@ -4,6 +4,6 @@ import com.intellij.lang.ASTNode;
 
 public class WktEmpty extends WktGeometry {
   public WktEmpty(ASTNode node) {
-    super(node);
+    super(node, "empty");
   }
 }

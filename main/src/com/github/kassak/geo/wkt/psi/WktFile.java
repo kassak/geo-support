@@ -7,7 +7,7 @@ import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.psi.FileViewProvider;
 import org.jetbrains.annotations.NotNull;
 
-public class WktFile extends PsiFileBase {
+public class WktFile extends PsiFileBase implements WktElement {
   public WktFile(@NotNull FileViewProvider viewProvider) {
     super(viewProvider, WktLanguage.INSTANCE);
   }

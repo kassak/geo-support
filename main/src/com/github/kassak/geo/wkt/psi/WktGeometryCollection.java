@@ -4,6 +4,6 @@ import com.intellij.lang.ASTNode;
 
 public class WktGeometryCollection extends WktGeometryHolderImpl<WktGeometry> {
   public WktGeometryCollection(ASTNode node) {
-    super(node, WktGeometry.class);
+    super(node, "geometry collection", WktGeometry.class);
   }
 }

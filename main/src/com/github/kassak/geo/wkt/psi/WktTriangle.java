@@ -4,6 +4,6 @@ import com.intellij.lang.ASTNode;
 
 public class WktTriangle extends WktGeometryHolderImpl<WktLineString> {
   public WktTriangle(ASTNode node) {
-    super(node, WktLineString.class);
+    super(node, "triangle", WktLineString.class);
   }
 }

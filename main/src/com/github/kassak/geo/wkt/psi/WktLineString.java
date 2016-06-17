@@ -5,6 +5,6 @@ import com.intellij.lang.ASTNode;
 
 public class WktLineString extends WktGeometryHolderImpl<WktPoint> {
   public WktLineString(ASTNode node) {
-    super(node, WktPoint.class);
+    super(node, "line string", WktPoint.class);
   }
 }

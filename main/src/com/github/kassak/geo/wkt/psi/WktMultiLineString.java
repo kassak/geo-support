@@ -4,6 +4,6 @@ import com.intellij.lang.ASTNode;
 
 public class WktMultiLineString extends WktGeometryHolderImpl<WktLineString> {
   public WktMultiLineString(ASTNode node) {
-    super(node, WktLineString.class);
+    super(node, "multi line string", WktLineString.class);
   }
 }
