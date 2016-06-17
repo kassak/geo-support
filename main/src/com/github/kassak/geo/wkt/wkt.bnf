@@ -51,11 +51,7 @@ meta private comma_list ::= <<item>> (',' <<item>>)* {pin(".*")=1}
 meta private comma_list_attrs_item ::= <<item>> {recoverWhile=comma_attr_list_item_recover}
 meta private comma_list_attrs ::= <<attributes <<comma_list <<comma_list_attrs_item <<item>>>>>>>>
 
-private numeric_2 ::= numeric numeric
-private numeric_3 ::= numeric numeric numeric
-private numeric_4 ::= numeric numeric numeric numeric
-
-emb_srid ::= SRID '=' NUMBER ';' {pin=1}
+emb_srid ::= SRID '=' integer ';' {pin=1}
 
 //hierarchy
 fake wkt_geometry ::=
@@ -89,17 +85,8 @@ private wkt_any_geometry ::=
     wkt_tagged_geom
   | wkt_tagged_wildcard
 
-private meta with_dim ::=
-    ZM <<withDim '"ZM"' <<proceed>>>>
-  | Z  <<withDim '"Z"'  <<proceed>>>>
-  | M  <<withDim '"M"'  <<proceed>>>>
-  |    <<withDim '""'   <<proceed>>>>
-
-private dim_coord ::=
-    &<<dimIs "ZM">> numeric_4
-  | &<<dimIs "Z">>  numeric_3
-  | &<<dimIs "M">>  numeric_3
-  | &<<dimIs "">>   numeric_2
+private dim_tags ::= [ZM | Z | M]
+private dim_coord ::= numeric*
 
 private wkt_tagged_geom ::=
     wkt_tagged_point
@@ -114,36 +101,36 @@ private wkt_tagged_geom ::=
   | wkt_tagged_geometry_collection
 
 wkt_empty ::= EMPTY {extends=wkt_geometry}
-wkt_tagged_point ::= POINT <<with_dim (
+wkt_tagged_point ::= POINT dim_tags (
     wkt_empty | wkt_point_text
-    )>>
-wkt_tagged_line_string ::= LINESTRING <<with_dim (
+    )
+wkt_tagged_line_string ::= LINESTRING dim_tags (
     wkt_empty | wkt_line_string_text
-    )>>
-wkt_tagged_polygon ::= POLYGON <<with_dim (
+    )
+wkt_tagged_polygon ::= POLYGON dim_tags (
     wkt_empty | wkt_polygon_text
-    )>>
-wkt_tagged_polyhedral_surface ::= POLYHEDRALSURFACE <<with_dim (
+    )
+wkt_tagged_polyhedral_surface ::= POLYHEDRALSURFACE dim_tags (
     wkt_empty | <<comma_list_attrs wkt_implicit_polygon>>
-    )>>
-wkt_tagged_triangle ::= TRIANGLE <<with_dim (
+    )
+wkt_tagged_triangle ::= TRIANGLE dim_tags (
     wkt_empty | wkt_polygon_text
-    )>>
-wkt_tagged_tin ::= TIN <<with_dim (
+    )
+wkt_tagged_tin ::= TIN dim_tags (
     wkt_empty | <<comma_list_attrs wkt_implicit_polygon>>
-    )>>
-wkt_tagged_multi_point ::= MULTIPOINT <<with_dim (
+    )
+wkt_tagged_multi_point ::= MULTIPOINT dim_tags (
     wkt_empty | <<comma_list_attrs wkt_implicit_point>>
-    )>>
-wkt_tagged_multi_line_string ::= MULTILINESTRING <<with_dim (
+    )
+wkt_tagged_multi_line_string ::= MULTILINESTRING dim_tags (
     wkt_empty | wkt_polygon_text
-    )>>
-wkt_tagged_multi_polygon ::= MULTIPOLYGON <<with_dim (
+    )
+wkt_tagged_multi_polygon ::= MULTIPOLYGON dim_tags (
     wkt_empty | <<comma_list_attrs wkt_implicit_polygon>>
-    )>>
-wkt_tagged_geometry_collection ::= GEOMETRYCOLLECTION <<with_dim (
+    )
+wkt_tagged_geometry_collection ::= GEOMETRYCOLLECTION dim_tags (
     wkt_empty | <<comma_list_attrs wkt_tagged_geom>>
-    )>>
+    )
 
 wkt_implicit_point_attr ::= dim_coord {elementType=attributes}
 wkt_implicit_no_paren_point ::= wkt_implicit_point_attr
