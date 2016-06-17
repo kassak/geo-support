@@ -2,8 +2,8 @@ package com.github.kassak.geo.wkt.psi;
 
 import com.intellij.lang.ASTNode;
 
-public class WktPolyhedralSurface extends WktGeometry {
+public class WktPolyhedralSurface extends WktGeometryHolderImpl<WktPolygon> {
   public WktPolyhedralSurface(ASTNode node) {
-    super(node);
+    super(node, WktPolygon.class);
   }
 }

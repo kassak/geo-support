@@ -2,8 +2,8 @@ package com.github.kassak.geo.wkt.psi;
 
 import com.intellij.lang.ASTNode;
 
-public class WktMultiPolygon extends WktGeometry {
+public class WktMultiPolygon extends WktGeometryHolderImpl<WktPolygon> {
   public WktMultiPolygon(ASTNode node) {
-    super(node);
+    super(node, WktPolygon.class);
   }
 }
