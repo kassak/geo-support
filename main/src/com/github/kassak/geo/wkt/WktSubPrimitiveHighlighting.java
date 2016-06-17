@@ -16,10 +16,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class WktPrimitiveHighlighting extends HighlightUsagesHandlerBase<WktGeometry> {
+public class WktSubPrimitiveHighlighting extends HighlightUsagesHandlerBase<WktGeometry> {
   private final WktGeometry myTarget;
 
-  protected WktPrimitiveHighlighting(@NotNull Editor editor, @NotNull PsiFile file, @NotNull WktGeometry target) {
+  protected WktSubPrimitiveHighlighting(@NotNull Editor editor, @NotNull PsiFile file, @NotNull WktGeometry target) {
     super(editor, file);
     this.myTarget = target;
   }
@@ -39,7 +39,7 @@ public class WktPrimitiveHighlighting extends HighlightUsagesHandlerBase<WktGeom
     for (WktGeometry target : targets) {
       WktAttributes attributes = target.getAttributes();
       if (attributes == null) continue;
-      for (WktElement sub : attributes.getAttributes(WktGeometry.class)) {
+      for (WktElement sub : attributes.getAttributes(WktElement.class)) {
         addOccurrence(sub);
       }
     }
@@ -50,7 +50,7 @@ public class WktPrimitiveHighlighting extends HighlightUsagesHandlerBase<WktGeom
     @Override
     public HighlightUsagesHandlerBase createHighlightUsagesHandler(@NotNull Editor editor, @NotNull PsiFile file, @NotNull PsiElement target) {
       WktGeometry geom = PsiTreeUtil.getParentOfType(target, WktGeometry.class);
-      return geom == null ? null : new WktPrimitiveHighlighting(editor, file, geom);
+      return geom == null ? null : new WktSubPrimitiveHighlighting(editor, file, geom);
     }
   }
 }
