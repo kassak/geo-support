@@ -1,5 +1,6 @@
 package com.github.kassak.geo.wkt;
 
+import com.github.kassak.geo.wkt.psi.WktElementFactory;
 import com.github.kassak.geo.wkt.psi.WktFile;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
@@ -56,7 +57,7 @@ public class WktParserDefinition implements ParserDefinition {
   @NotNull
   @Override
   public PsiElement createElement(ASTNode node) {
-    return WktTypes.Factory.createElement(node);
+    return WktElementFactory.createElement(node);
   }
 
   @Override
