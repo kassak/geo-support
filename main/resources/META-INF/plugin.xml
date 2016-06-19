@@ -9,5 +9,6 @@
     <lang.braceMatcher language="WKT" implementationClass="com.github.kassak.geo.wkt.WktPairedBraceMatcher"/>
     <lang.syntaxHighlighterFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktSyntaxHighlighter$Factory"/>
     <highlightUsagesHandlerFactory implementation="com.github.kassak.geo.wkt.WktSubPrimitiveHighlighting$Factory"/>
+    <lang.psiStructureViewFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktStructureViewModel$Factory"/>
   </extensions>
 </idea-plugin>
