@@ -25,11 +25,19 @@ IDENT = [a-zA-Z]\w*
 STRING_CHAR = [^\"]|\"\"
 STRING = \"{STRING_CHAR}*\"
 INVALID_STRING = \"{STRING_CHAR}*
+YYYY = \d{4}
+MM = \d{2}
+DD = \d{2}
+DDD = \d{3}
+HH = \d{2}
+SS = \d+(\.\d+)?
+DATETIME = {YYYY}-({MM}(-{DD})?|{DDD})(T{HH}(:{MM}(:{SS})?)?(Z|[-+]{HH}(:{MM})?)?)?
 
 %%
 
 <YYINITIAL> {
   {IDENT}           {return WktTypes.IDENT;}
+  {DATETIME}        {return WktTypes.DATETIME;}
   {NUMBER}          {return WktTypes.NUMBER;}
   {SCIENTIFIC}      {return WktTypes.SCIENTIFIC;}
   "("               {return WktTypes.LPAREN;}
