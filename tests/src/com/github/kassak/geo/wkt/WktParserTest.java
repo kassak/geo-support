@@ -38,4 +38,7 @@ public class WktParserTest extends ParsingTestCase {
   public void testMany() { doTest(true); }
   public void testWiki() { doTest(true); }
   public void testCrsFromStd() { doTest(true); }
+  public void testEnviPEProjcsStrings_v10() { doTest(true); }
+  public void testEnviPEProjcsStrings_v10_2() { doTest(true); }
+  public void testEnviPEProjcsStrings_v10_3() { doTest(true); }
 }

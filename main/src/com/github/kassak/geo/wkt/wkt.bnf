@@ -311,7 +311,7 @@ private map_projection_def ::= map_projection_current_def | map_projection_legac
 map_projection_legacy_def ::= PROJECTION <<attributes map_projection_legacy_attrs>>
 private map_projection_legacy_attrs ::=
       <<aw string_literal>>
- (',' <<aw map_projection_parameter_def>>)+
+ (',' <<aw map_projection_parameter_def>>)*
 map_projection_current_def ::= CONVERSION <<attributes map_projection_attrs>>
 private map_projection_attrs ::=
       <<aw string_literal>> //name
