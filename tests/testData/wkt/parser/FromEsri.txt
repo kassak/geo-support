@@ -239,7 +239,7 @@ FILE
       PsiWhiteSpace(' ')
       WktAttributes(ATTRIBUTES)
         PsiElement(()('(')
-        PsiErrorElement:'10' unexpected
+        PsiErrorElement:<wkt implicit point> expected, got '10'
           PsiElement(NUMBER)('10')
         PsiElement(DUMMY_BLOCK)
           PsiWhiteSpace(' ')

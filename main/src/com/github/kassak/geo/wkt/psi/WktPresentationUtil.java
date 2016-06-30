@@ -9,18 +9,18 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 
 public class WktPresentationUtil {
-  public static ItemPresentation getPresentation(@NotNull WktGeometry geom) {
+  public static ItemPresentation getPresentation(@NotNull WktClause clause) {
     return new ItemPresentation() {
       @Nullable
       @Override
       public String getPresentableText() {
-        return geom.getTag();
+        return clause.getTag();
       }
 
       @Nullable
       @Override
       public String getLocationString() {
-        WktAttributes attributes = geom.getAttributes();
+        WktAttributes attributes = clause.getAttributes();
         if (attributes == null) return null;
         String text = attributes.getText();
         return StringUtil.shortenTextWithEllipsis(text, 25, 8, true);

@@ -17,6 +17,8 @@ public class WktElementFactory {
       .put(EMB_SRID, WktEmbSrid.class)
       .put(INTEGER, WktNumeric.class)
       .put(NUMERIC, WktNumeric.class)
+      .put(DATETIME_LITERAL, WktDatetime.class)
+      .put(STRING_LITERAL, WktString.class)
       .put(WKT_EMPTY, WktEmpty.class)
       .put(WKT_GEOMETRY_COLLECTION, WktGeometryCollection.class)
       .put(WKT_LINE_STRING, WktLineString.class)
@@ -29,6 +31,7 @@ public class WktElementFactory {
       .put(WKT_TIN, WktTin.class)
       .put(WKT_TRIANGLE, WktTriangle.class)
       .put(WKT_WILDCARD, WktWildcard.class)
+      .put(WKT_CLAUSE, WktClause.class)
       .build();
 
   public static PsiElement createElement(ASTNode node) {

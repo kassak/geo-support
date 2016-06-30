@@ -11,6 +11,7 @@
   parserUtilClass="com.github.kassak.geo.wkt.WktGeneratedParserUtil"
 
   extends("wkt_.*_geom") = wkt_geometry
+  elementType(".*_def") = wkt_clause
   pin("wkt_.*_geom") = 1
   pin(".*_def") = 1
   pin(".*_recover") = 0
@@ -39,7 +40,9 @@
   ]
 }
 
-root ::= <<parsePrimitives ewkt_geometry>>
+root ::= <<parsePrimitives wkt_root>>
+
+private wkt_root ::= crs_def | ewkt_geometry
 
 integer ::= NUMBER {name="integer"}
 datetime_literal ::= NUMBER | DATETIME {name="datetime"}
@@ -55,12 +58,14 @@ meta attributes ::=
   | <<attrs_inner '[' <<attrs>> ']'>>
 meta private comma_list ::= <<item>> (',' <<item>>)*
 meta private comma_list_attrs ::= <<attributes <<comma_list <<aw <<item>>>>>>>>
-meta private aw ::= <<item>> {recoverWhile=comma_attr_list_item_recover} //attribute wrapper
+meta private aw ::= <<item>> aw_clear
+private aw_clear ::= {recoverWhile=comma_attr_list_item_recover} //attribute wrapper
 
 // WKT GEOMETRY
 
 //hierarchy
-fake wkt_geometry ::=
+fake wkt_clause ::=
+fake wkt_geometry ::= {extends=wkt_clause}
 fake wkt_point ::= {extends=wkt_geometry}
 fake wkt_line_string ::= {extends=wkt_geometry}
 fake wkt_polygon ::= {extends=wkt_geometry}
@@ -158,7 +163,7 @@ private wildcard_geometry_attr ::= numeric | STRING | wkt_any_geometry | wkt_imp
 
 // WKT CRS
 private identifier_list_attrs ::= (',' <<aw identifier_def>>)*
-scope_extent_identifier_remark_attrs ::=
+private scope_extent_identifier_remark_attrs ::=
  [',' <<aw scope_def>>]
  (',' <<aw extent_def>>)*
       identifier_list_attrs
@@ -181,7 +186,7 @@ temporal_extent_def ::= TIMEEXTENT <<attributes temporal_extent_attrs>>
 private temporal_extent_attrs ::=
       <<aw (datetime_literal|string_literal)>>
   ',' <<aw (datetime_literal|string_literal)>>
-identifier_def ::= ID <<attributes identifier_attrs>>
+identifier_def ::= (ID | AUTHORITY /*OGC 01-009*/) <<attributes identifier_attrs>>
 private identifier_attrs ::=
       <<aw string_literal>> //authority name
   ',' <<aw (integer | string_literal)>> //authority uid
@@ -194,7 +199,7 @@ remark_def ::= REMARK <<attributes string_literal>>
 
 private unit_def ::= angle_unit_def | length_unit_def | scale_unit_def | parametric_unit_def | time_unit_def
 angle_unit_def ::= {ANGLEUNIT | UNIT} unit_attributes
-length_unit_def ::= {LENGHTUNIT | UNIT} unit_attributes
+length_unit_def ::= {LENGTHUNIT | UNIT} unit_attributes
 scale_unit_def ::= {SCALEUNIT | UNIT} unit_attributes
 parametric_unit_def ::= PARAMETRICUNIT unit_attributes
 time_unit_def ::= TIMEUNIT unit_attributes
@@ -204,10 +209,14 @@ private unit_attrs ::=
   ',' <<aw numeric>> //conversion factor
       identifier_list_attrs
 cs_def ::= CS <<attributes cs_attrs>>
-private coordinate_system_attrs ::=
+private coordinate_system_attrs ::= coordinate_system_current_attrs | coordinate_system_legacy_attrs
+private coordinate_system_current_attrs ::=
       <<aw cs_def>>
  (',' <<aw axis_def>>)+
  [',' <<aw cs_unit_def>>]
+private coordinate_system_legacy_attrs ::=
+ (<<aw axis_def>> ',')*
+  <<aw cs_unit_def>>
 private cs_attrs ::=
       <<aw cs_type>>
   ',' <<aw integer>>
@@ -246,18 +255,19 @@ private axis_direction ::=
   | DISPLAYUP | DISPLAYDOWN | DISPLAYLEFT | DISPLAYRIGHT
   | FUTURE | PAST | TOWARDS | AWAYFROM
   | UNSPECIFIED
-  {pin('axis_direction_\d*')=1}
+  {pin('.*')="(?!',').*"}
 meridian_def ::= MERIDIAN <<attributes meridian_attrs>>
 private meridian_attrs ::= <<aw numeric>> ',' <<aw angle_unit_def>>
 bearing_def ::= BEARING <<attributes numeric>>
 axis_order_def ::= ORDER <<attributes integer>>
 private axis_unit_def ::= unit_def
 private cs_unit_def ::= unit_def
-private ellipsoidal_2d_coordinate_system_attrs ::= coordinate_system_attrs
-geodetic_crs_def ::= (GEODCRS | GEODETICCRS) <<attributes geodetic_crs_attrs>>
+geodetic_crs_def ::= geodetic_crs_current_def | geodetic_crs_legacy_def
+geodetic_crs_legacy_def ::= (GEOCCS | GEOGCS) <<attributes geodetic_crs_attrs>>
+geodetic_crs_current_def ::= (GEODCRS | GEODETICCRS) <<attributes geodetic_crs_attrs>>
 private geodetic_crs_attrs ::=
       <<aw string_literal>> //name
-  ',' { <<aw geodetic_datum_attrs>>
+  ',' { geodetic_datum_attrs
       | <<aw base_geodetic_crs_def>> ',' <<aw deriving_conversion_def>> }
   ',' coordinate_system_attrs
       scope_extent_identifier_remark_attrs
@@ -280,57 +290,70 @@ private geo_datum_attrs ::=
   ',' <<aw ellipsoid_def>>
  [',' <<aw datum_anchor_def>>]
       identifier_list_attrs
-private geodetic_datum_attrs ::= <<aw geo_datum_def>> ',' <<aw prime_meridian_def>>
+ [',' <<aw prime_meridian_def>>] //legacy
+ //[',' <<aw to_wgs84_def>>] //todo:
+private geodetic_datum_attrs ::= <<aw geo_datum_def>> [',' <<aw prime_meridian_def>>]
 datum_anchor_def ::= ANCHOR <<attributes string_literal>> //desc
-projected_crs_def ::= (PROJCRS | PROJECTEDCRS) <<attributes projected_crs_attrs>>
+projected_crs_def ::= (PROJCRS | PROJECTEDCRS | PROJCS) <<attributes projected_crs_attrs>>
 private projected_crs_attrs ::=
       <<aw string_literal>> //name
-  ',' <<aw base_geodetic_crs_def>>
+  ',' <<aw {base_geodetic_crs_def | geodetic_crs_legacy_def}>>
   ',' <<aw map_projection_def>>
   ',' coordinate_system_attrs
+      scope_extent_identifier_remark_attrs
 base_geodetic_crs_def ::= BASEGEODCRS <<attributes base_geodetic_crs_attrs>>
 private base_geodetic_crs_attrs ::=
       <<aw string_literal>> //name
   ',' geodetic_datum_attrs
  [',' <<aw ellipsoidal_cs_unit_def>>]
 private ellipsoidal_cs_unit_def ::= angle_unit_def
-map_projection_def ::= CONVERSION <<attributes map_projection_attrs>>
+private map_projection_def ::= map_projection_current_def | map_projection_legacy_def
+map_projection_legacy_def ::= PROJECTION <<attributes map_projection_legacy_attrs>>
+private map_projection_legacy_attrs ::=
+      <<aw string_literal>>
+ (',' <<aw map_projection_parameter_def>>)+
+map_projection_current_def ::= CONVERSION <<attributes map_projection_attrs>>
 private map_projection_attrs ::=
       <<aw string_literal>> //name
   ',' <<aw map_projection_method_def>>
- (',' map_projection_parameter_def)+
+ (',' <<aw map_projection_parameter_def>>)+
       identifier_list_attrs
 map_projection_method_def ::= (METHOD | PROJECTION) <<attributes map_projection_method_attrs>>
 private map_projection_method_attrs ::=
       <<aw string_literal>> //name
       identifier_list_attrs
-map_projection_parameter_def ::= PARAMETER
+map_projection_parameter_def ::= PARAMETER <<attributes map_projection_parameter_attrs>>
+private map_projection_parameter_attrs ::=
       <<aw string_literal>> //name
   ',' <<aw numeric>>
  [',' <<aw map_projection_parameter_unit_def>>]
       identifier_list_attrs
 private map_projection_parameter_unit_def ::= length_unit_def | angle_unit_def | scale_unit_def
-vertical_crs_def ::= (VERTCRS | VERTICALCRS) <<attributes vertical_crs_attrs>>
+vertical_crs_def ::= (VERTCRS | VERTICALCRS | VERT_CS) <<attributes vertical_crs_attrs>>
 private vertical_crs_attrs ::=
       <<aw string_literal>> //name
   ',' { <<aw vertical_datum_def>>
       | <<aw base_vertical_crs_def>> ',' <<aw deriving_conversion_def>>}
   ',' coordinate_system_attrs
       scope_extent_identifier_remark_attrs
-vertical_datum_def ::= (VDATUM | VERTICALDATUM) <<attributes vertical_datum_attrs>>
+private vertical_datum_def ::= vertical_datum_current_def | vertical_datum_legacy_def
+vertical_datum_current_def ::= (VDATUM | VERTICALDATUM) <<attributes vertical_datum_attrs>>
+vertical_datum_legacy_def ::= VERT_DATUM <<attributes {<<aw string_literal>> ',' <<aw numeric>>}>>
 private vertical_datum_attrs ::=
       <<aw string_literal>> //name
  [',' <<aw datum_anchor_def>>]
       identifier_list_attrs
-engineering_crs_def ::= (ENGCRS | ENGINEERINGCRS) <<attributes engineering_crs_attrs>>
+engineering_crs_def ::= (ENGCRS | ENGINEERINGCRS | LOCAL_CS) <<attributes engineering_crs_attrs>>
 private engineering_crs_attrs ::=
       <<aw string_literal>> //name
-  ',' { <<aw engineering_datum_def>>
-      | <<aw {base_projected_crs_def | base_geodetic_crs_def | base_engineering_crs_def}>> ','
-        <<aw deriving_conversion_def>>}
+  ',' <<aw { engineering_datum_def
+      | {base_projected_crs_def | base_geodetic_crs_def | base_engineering_crs_def} ','
+        <<aw deriving_conversion_def>>}>>
   ',' coordinate_system_attrs
       scope_extent_identifier_remark_attrs
-engineering_datum_def ::= (EDATUM | ENGINEERINGDATUM) <<attributes engineering_datum_attrs>>
+private engineering_datum_def ::= engineering_datum_current_def | engineering_datum_legacy_def
+engineering_datum_current_def ::= (EDATUM | ENGINEERINGDATUM) <<attributes engineering_datum_attrs>>
+engineering_datum_legacy_def ::= LOCAL_DATUM <<attributes {<<aw string_literal>> ',' <<aw numeric>>}>>
 private engineering_datum_attrs ::=
       <<aw string_literal>> //name
  [',' <<aw datum_anchor_def>>]
@@ -416,7 +439,7 @@ base_temporal_crs_def ::= BASETIMECRS <<attributes base_temporal_crs_attrs>>
 private base_temporal_crs_attrs ::=
       <<aw string_literal>> //name
   ',' <<aw temporal_datum_def>>
-compound_crs_def ::= COMPOUNDCRS <<attributes compound_crs_attrs>>
+compound_crs_def ::= (COMPOUNDCRS | COMPD_CS) <<attributes compound_crs_attrs>>
 private compound_crs_attrs ::=
       <<aw string_literal>> //name
   ',' <<aw horizontal_crs_def>>
@@ -425,3 +448,53 @@ private compound_crs_attrs ::=
       | <<aw temporal_crs_def>> }
       scope_extent_identifier_remark_attrs
 private horizontal_crs_def ::= geodetic_crs_def | projected_crs_def | engineering_crs_def
+coordinate_operation_def ::= COORDINATEOPERATION <<attributes coordinate_operation_attrs>>
+private coordinate_operation_attrs ::=
+      <<aw string_literal>> //name
+  ',' <<aw source_crs_def>>
+  ',' <<aw target_crs_def>>
+  ',' <<aw operation_method_def>>
+ (',' <<aw {operation_parameter_def | operation_parameter_file_def}>>)+
+ [',' <<aw interpolation_crs_def>>]
+ [',' <<aw operation_accuracy_def>>]
+      scope_extent_identifier_remark_attrs
+source_crs_def ::= SOURCECRS <<attributes coordinate_reference_system_def>>
+target_crs_def ::= TARGETCRS <<attributes coordinate_reference_system_def>>
+interpolation_crs_def ::= INTERPOLATIONCRS <<attributes coordinate_reference_system_def>>
+coordinate_reference_system_def ::=
+    geodetic_crs_def | projected_crs_def | vertical_crs_def
+  | engineering_crs_def | image_crs_def | parametric_crs_def
+  | temporal_crs_def | compound_crs_def
+operation_accuracy_def ::= OPERATIONACCURACY <<attributes numeric>>
+bound_crs_def ::= BOUNDCRS <<attributes bound_crs_attrs>>
+private bound_crs_attrs ::=
+      <<aw source_crs_def>>
+  ',' <<aw target_crs_def>>
+  ',' <<aw abridged_coordinate_transformation_def>>
+      identifier_list_attrs
+      scope_extent_identifier_remark_attrs
+abridged_coordinate_transformation_def ::= ABRIDGEDTRANSFORMATION <<attributes abridged_coordinate_transformation_attrs>>
+private abridged_coordinate_transformation_attrs ::=
+      <<aw string_literal>> //name
+  ',' <<aw operation_method_def>>
+ (',' <<aw {abridged_transformation_parameter_def | operation_parameter_file_def}>>)+
+      scope_extent_identifier_remark_attrs
+abridged_transformation_parameter_def ::= PARAMETER <<attributes abridged_transformation_parameter_attrs>>
+private abridged_transformation_parameter_attrs ::=
+      <<aw string_literal>> //name
+  ',' <<aw numeric>> //value
+      identifier_list_attrs
+//fitted_crs_def ::= FITTED_CS <<attributes {}>> //todo:
+
+private crs_def ::=
+    geodetic_crs_def
+  | engineering_crs_def
+  | vertical_crs_def
+  | image_crs_def
+  | temporal_crs_def
+  | parametric_crs_def
+  | projected_crs_def
+  | compound_crs_def
+  | bound_crs_def
+  | coordinate_operation_def
+  //| fitted_crs_def

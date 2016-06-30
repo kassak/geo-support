@@ -32,7 +32,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POINTZ
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POINTZ
         <empty list>
       PsiElement(IDENT)('POINTZ')
       WktAttributes(ATTRIBUTES)
@@ -51,7 +51,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POINTM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POINTM
         <empty list>
       PsiElement(IDENT)('POINTM')
       WktAttributes(ATTRIBUTES)
@@ -172,10 +172,10 @@ FILE
           PsiElement(SCIENTIFIC)('8E-003')
         PsiElement())(')')
     PsiWhiteSpace('\n')
-    PsiErrorElement:SRID expected
+    PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, IMAGECRS, PARAMETRICCRS, SRID or TIMECRS expected
       PsiElement(SRID)('SRID')
   PsiElement(DUMMY_BLOCK)
-    PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected
+    PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected
       PsiElement(=)('=')
       PsiElement(NUMBER)('432')
       PsiElement(.)('.')
@@ -206,7 +206,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POINTM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POINTM
         <empty list>
       PsiElement(IDENT)('POINTM')
       WktAttributes(ATTRIBUTES)
@@ -221,7 +221,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POINTM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POINTM
         <empty list>
       PsiElement(IDENT)('POINTM')
       WktAttributes(ATTRIBUTES)
@@ -242,7 +242,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POINTZM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POINTZM
         <empty list>
       PsiElement(IDENT)('POINTZM')
       WktAttributes(ATTRIBUTES)
@@ -261,7 +261,7 @@ FILE
   PsiElement(DUMMY_BLOCK)
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POINTZM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POINTZM
         <empty list>
       PsiElement(IDENT)('POINTZM')
       WktAttributes(ATTRIBUTES)
@@ -394,7 +394,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got LINESTRINGM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got LINESTRINGM
         <empty list>
       PsiElement(IDENT)('LINESTRINGM')
       WktAttributes(ATTRIBUTES)
@@ -426,7 +426,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got LINESTRINGZM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got LINESTRINGZM
         <empty list>
       PsiElement(IDENT)('LINESTRINGZM')
       WktAttributes(ATTRIBUTES)
@@ -668,7 +668,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POLYGONM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POLYGONM
         <empty list>
       PsiElement(IDENT)('POLYGONM')
       WktAttributes(ATTRIBUTES)
@@ -724,7 +724,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got POLYGONZM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got POLYGONZM
         <empty list>
       PsiElement(IDENT)('POLYGONZM')
       WktAttributes(ATTRIBUTES)
@@ -1045,7 +1045,7 @@ FILE
       PsiElement(POLYGON)('POLYGON')
       WktAttributes(ATTRIBUTES)
         PsiElement(()('(')
-        PsiErrorElement:'0' unexpected
+        PsiErrorElement:<wkt implicit line string> expected, got '0'
           PsiElement(NUMBER)('0')
         PsiElement(DUMMY_BLOCK)
           PsiWhiteSpace(' ')
@@ -1175,33 +1175,32 @@ FILE
         PsiElement(NUMBER)('5')
         PsiElement(,)(',')
         PsiErrorElement:<wkt implicit line string> expected, got '7'
-          PsiElement(NUMBER)('7')
-        PsiWhiteSpace(' ')
-        PsiElement(NUMBER)('5')
-        PsiElement(,)(',')
-        PsiErrorElement:<wkt implicit line string> expected, got '7'
-          PsiElement(NUMBER)('7')
-        PsiWhiteSpace(' ')
+          <empty list>
         PsiElement(NUMBER)('7')
-        PsiElement(,)(',')
-        PsiErrorElement:<wkt implicit line string> expected, got '5'
+        PsiElement(DUMMY_BLOCK)
+          PsiWhiteSpace(' ')
           PsiElement(NUMBER)('5')
-        PsiWhiteSpace(' ')
-        PsiElement(NUMBER)('7')
-        PsiElement(,)(',')
-        PsiErrorElement:<wkt implicit line string> expected, got '5'
+          PsiElement(,)(',')
+          PsiElement(NUMBER)('7')
+          PsiWhiteSpace(' ')
+          PsiElement(NUMBER)('7')
+          PsiElement(,)(',')
           PsiElement(NUMBER)('5')
-        PsiWhiteSpace(' ')
-        PsiElement(NUMBER)('5')
+          PsiWhiteSpace(' ')
+          PsiElement(NUMBER)('7')
+          PsiElement(,)(',')
+          PsiElement(NUMBER)('5')
+          PsiWhiteSpace(' ')
+          PsiElement(NUMBER)('5')
         PsiElement())(')')
-    PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected
+    PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected
       PsiElement())(')')
     PsiWhiteSpace('\n')
     WktMultiPoint(WKT_MULTI_POINT)
       PsiElement(MULTIPOINT)('MULTIPOINT')
       WktAttributes(ATTRIBUTES)
         PsiElement(()('(')
-        PsiErrorElement:'0' unexpected
+        PsiErrorElement:<wkt implicit point> expected, got '0'
           PsiElement(NUMBER)('0')
         PsiElement(DUMMY_BLOCK)
           PsiWhiteSpace(' ')
@@ -1221,7 +1220,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got MULTIPOINTM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got MULTIPOINTM
         <empty list>
       PsiElement(IDENT)('MULTIPOINTM')
       WktAttributes(ATTRIBUTES)
@@ -1273,7 +1272,7 @@ FILE
       PsiElement(MULTIPOINT)('MULTIPOINT')
       WktAttributes(ATTRIBUTES)
         PsiElement(()('(')
-        PsiErrorElement:'0' unexpected
+        PsiErrorElement:<wkt implicit point> expected, got '0'
           PsiElement(NUMBER)('0')
         PsiElement(DUMMY_BLOCK)
           PsiWhiteSpace(' ')
@@ -1627,22 +1626,21 @@ FILE
         PsiElement(NUMBER)('5')
         PsiElement(,)(',')
         PsiErrorElement:<wkt implicit line string> expected, got '7'
-          PsiElement(NUMBER)('7')
+          <empty list>
+        PsiElement(NUMBER)('7')
         PsiWhiteSpace(' ')
         PsiElement(NUMBER)('5')
         PsiElement(,)(',')
-        PsiErrorElement:<wkt implicit line string> expected, got '7'
-          PsiElement(NUMBER)('7')
+        PsiElement(NUMBER)('7')
         PsiWhiteSpace(' ')
         PsiElement(NUMBER)('7')
         PsiElement(,)(',')
-        PsiErrorElement:<wkt implicit line string> expected, got '5'
-          PsiElement(NUMBER)('5')
+        PsiElement(NUMBER)('5')
         PsiWhiteSpace(' ')
         PsiElement(NUMBER)('7')
         PsiElement())(')')
   PsiElement(DUMMY_BLOCK)
-    PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected
+    PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected
       PsiElement())(')')
     PsiWhiteSpace('\n')
     WktMultiPolygon(WKT_MULTI_POLYGON)
@@ -2048,7 +2046,7 @@ FILE
         WktPolygon(WKT_POLYGON)
           WktAttributes(ATTRIBUTES)
             PsiElement(()('(')
-            PsiErrorElement:'1' unexpected
+            PsiErrorElement:<wkt implicit line string> expected, got '1'
               PsiElement(NUMBER)('1')
             PsiElement(DUMMY_BLOCK)
               PsiWhiteSpace(' ')
@@ -2128,7 +2126,7 @@ FILE
         PsiElement())(')')
     PsiWhiteSpace('\n')
     WktWildcard(WKT_WILDCARD)
-      PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected,  got GEOMETRYCOLLECTIONM
+      PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected,  got GEOMETRYCOLLECTIONM
         <empty list>
       PsiElement(IDENT)('GEOMETRYCOLLECTIONM')
       WktAttributes(ATTRIBUTES)
@@ -2253,14 +2251,14 @@ FILE
       PsiElement(GEOMETRYCOLLECTION)('GEOMETRYCOLLECTION')
       WktAttributes(ATTRIBUTES)
         PsiElement(()('(')
-        PsiErrorElement:'PNT' unexpected
+        PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, TIN or TRIANGLE expected, got 'PNT'
           PsiElement(IDENT)('PNT')
         PsiElement(()('(')
         PsiElement(NUMBER)('10')
         PsiWhiteSpace(' ')
         PsiElement(NUMBER)('10')
         PsiElement())(')')
-    PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected
+    PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected
       PsiElement(,)(',')
     PsiWhiteSpace(' ')
     WktPoint(WKT_POINT)
@@ -2273,7 +2271,7 @@ FILE
         WktNumeric(NUMERIC)
           PsiElement(NUMBER)('30')
         PsiElement())(')')
-  PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected
+  PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected
     PsiElement(,)(',')
   PsiWhiteSpace(' ')
   WktLineString(WKT_LINE_STRING)
@@ -2297,7 +2295,7 @@ FILE
           WktNumeric(NUMERIC)
             PsiElement(NUMBER)('20')
       PsiElement())(')')
-  PsiErrorElement:GEOMETRYCOLLECTION, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIN or TRIANGLE expected
+  PsiErrorElement:<compound crs def>, <engineering crs def>, <geodetic crs def>, <projected crs def>, <vertical crs def>, BOUNDCRS, COORDINATEOPERATION, GEOMETRYCOLLECTION, IMAGECRS, LINESTRING, MULTILINESTRING, MULTIPOINT, MULTIPOLYGON, PARAMETRICCRS, POINT, POLYGON, POLYHEDRALSURFACE, SRID, TIMECRS, TIN or TRIANGLE expected
     PsiElement())(')')
   PsiWhiteSpace('\n')
   WktGeometryCollection(WKT_GEOMETRY_COLLECTION)

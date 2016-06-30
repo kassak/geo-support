@@ -3,8 +3,8 @@ package com.github.kassak.geo.wkt.psi;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 
-public class WktNumeric extends ASTWrapperPsiElement implements WktElement {
-  public WktNumeric(ASTNode node) {
+public class WktDatetime extends ASTWrapperPsiElement implements WktElement {
+  public WktDatetime(ASTNode node) {
     super(node);
   }
 }

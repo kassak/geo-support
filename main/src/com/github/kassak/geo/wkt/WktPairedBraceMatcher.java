@@ -9,8 +9,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class WktPairedBraceMatcher implements PairedBraceMatcher {
   public static final BracePair[] BRACES = new BracePair[]{
+    new BracePair(WktTypes.LBRACKET, WktTypes.RBRACKET, false),
     new BracePair(WktTypes.LPAREN, WktTypes.RPAREN, false),
-    new BracePair(WktTypes.LBRACKET, WktTypes.RBRACKET, false)
   };
 
   @Override
