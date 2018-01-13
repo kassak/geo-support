@@ -1,5 +1,5 @@
 plugins {
-  id 'org.jetbrains.intellij' version "0.1.6"
+  id 'org.jetbrains.intellij' version "0.2.17"
 }
 repositories {
   mavenCentral()
@@ -38,6 +38,7 @@ allprojects {
   apply plugin: 'org.jetbrains.intellij'
   intellij {
     pluginName 'geo-support'
+    version 'IU-173.4301.14'
   }
 
   apply plugin: 'idea'
@@ -50,7 +51,7 @@ allprojects {
 
 task generateLexer(type: JavaExec) {
   ext.skelDep = configurations.gen.dependencies.find { it.name.equals("idea-flex") }
-  ext.skel = configurations.gen.files(skelDep).find {true};
+  ext.skel = configurations.gen.files(skelDep).find {true}
   ext.src = "main/src/com/github/kassak/geo/wkt/wkt.flex"
   ext.dst = "main/gen/com/github/kassak/geo/wkt/"
   main = "jflex.Main"
