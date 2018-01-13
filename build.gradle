@@ -1,3 +1,15 @@
+import org.jetbrains.grammarkit.tasks.GenerateLexer
+import org.jetbrains.grammarkit.tasks.GenerateParser
+
+buildscript {
+  repositories {
+    maven { setUrl("https://jitpack.io") }
+  }
+  dependencies {
+    classpath "com.github.hurricup:gradle-grammar-kit-plugin:2017.1.1"
+  }
+}
+
 plugins {
   id 'org.jetbrains.intellij' version "0.2.17"
 }
@@ -6,18 +18,14 @@ repositories {
   ivy {
     url 'https://github.com/'
     layout 'pattern', {
-      artifact '/intellij-rust/intellij-rust/raw/[revision]/lib/[module].[ext]' //GK distrib
       artifact '/JetBrains/intellij-community/raw/[revision]/tools/lexer/[module].[ext]' //JFlex + .skeleton
     }
   }
 }
 configurations { gen }
 dependencies {
-  //https://github.com/intellij-rust/intellij-rust/raw/81dc41763cde287f56fcbaadb70b9b15d112f87d/lib/grammar-kit.jar
-  gen ':grammar-kit:81dc41763cde287f56fcbaadb70b9b15d112f87d'
   //https://github.com/JetBrains/intellij-community/raw/c1fdf11ac00eb769310e481e96c16ce0f48044d2/tools/lexer/idea-flex.skeleton
   gen ':idea-flex:c1fdf11ac00eb769310e481e96c16ce0f48044d2@skeleton'
-  gen ':jflex-1.7.0-SNAPSHOT:c1fdf11ac00eb769310e481e96c16ce0f48044d2'
 }
 
 allprojects {
@@ -49,30 +57,23 @@ allprojects {
   }
 }
 
-task generateLexer(type: JavaExec) {
-  ext.skelDep = configurations.gen.dependencies.find { it.name.equals("idea-flex") }
-  ext.skel = configurations.gen.files(skelDep).find {true}
-  ext.src = "main/src/com/github/kassak/geo/wkt/wkt.flex"
-  ext.dst = "main/gen/com/github/kassak/geo/wkt/"
-  main = "jflex.Main"
-  args = ["--skel", skel, "-d", dst, src]
-  inputs.file file(src)
-  outputs.dir file(dst + "_WktLexer.java")
+apply plugin: 'org.jetbrains.grammarkit'
 
-  classpath configurations.gen
+task generateParser(type: GenerateParser) {
+  source = "main/src/com/github/kassak/geo/wkt/wkt.bnf"
+  pathToParser = '/com/github/kassak/geo/wkt/WktParser.java'
+  pathToPsiRoot = '/com/github/kassak/geo/wkt/psi'
+  targetRoot = 'main/gen'
+  purgeOldFiles = true
 }
 
-task generateParser(type: JavaExec) {
-  doFirst { delete file("main/gen/com/github/kassak/geo/wkt/psi") }
-  ext.src = "main/src/com/github/kassak/geo/wkt/wkt.bnf"
-  ext.dstRoot = "main/gen"
-  main = "org.intellij.grammar.Main"
-  args = [ dstRoot, file(src) ]
-  inputs.file file(src)
-  outputs.dir fileTree(dir: dstRoot + '/com/github/kassak/geo/wkt/', include: '**/*.java')
-
-  classpath configurations.compile + configurations.gen
+task generateLexer(type: GenerateLexer) {
+  source = "main/src/com/github/kassak/geo/wkt/wkt.flex"
+  targetDir = "main/gen/com/github/kassak/geo/wkt/"
+  targetClass = "_WktLexer"
+  skeleton = configurations.gen.files(configurations.gen.dependencies.find { it.name == "idea-flex" }).first()
 }
+
 
 compileJava.dependsOn generateLexer
 compileJava.dependsOn generateParser
