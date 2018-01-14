@@ -1,4 +1,4 @@
-<idea-plugin url="https://github.com/kassak/geo-support" version="1">
+<idea-plugin url="https://github.com/kassak/geo-support">
   <id>com.github.kassak.geo-support</id>
   <name>geo-support</name>
   <description>Support of geographic data (WKT, WKB, ...)</description>
@@ -10,5 +10,6 @@
     <lang.syntaxHighlighterFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktSyntaxHighlighter$Factory"/>
     <highlightUsagesHandlerFactory implementation="com.github.kassak.geo.wkt.WktSubPrimitiveHighlighting$Factory"/>
     <lang.psiStructureViewFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktStructureViewModel$Factory"/>
+    <toolWindow id="Map Viewer" anchor="bottom"  factoryClass="com.github.kassak.geo.MapToolWindowFactory"/>
   </extensions>
 </idea-plugin>

@@ -14,6 +14,9 @@ plugins {
   id 'org.jetbrains.intellij' version "0.2.17"
 }
 repositories {
+  maven { url 'http://maven.geotoolkit.org/' }
+  maven { url 'http://repo.boundlessgeo.com/main/' }
+  maven { url 'http://download.osgeo.org/webdav/geotools/' }
   mavenCentral()
   ivy {
     url 'https://github.com/'
@@ -47,6 +50,7 @@ allprojects {
   intellij {
     pluginName 'geo-support'
     version 'IU-173.4301.14'
+    type 'IU'
   }
 
   apply plugin: 'idea'
@@ -54,6 +58,12 @@ allprojects {
     module {
       generatedSourceDirs += file('main/gen')
     }
+  }
+
+  dependencies {
+    compile 'org.geotools:gt-swing:18.1'
+    compile 'org.geotools:gt-wms:18.1'
+    compile 'org.geotools:gt-epsg-hsql:18.1'
   }
 }
 
