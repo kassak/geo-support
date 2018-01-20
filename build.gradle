@@ -61,9 +61,11 @@ allprojects {
   }
 
   dependencies {
-    compile 'org.geotools:gt-swing:18.1'
-    compile 'org.geotools:gt-wms:18.1'
-    compile 'org.geotools:gt-epsg-hsql:18.1'
+    def noLog = { exclude group: 'commons-logging', module: 'commons-logging' }
+    compile 'org.geotools:gt-swing:18.1', noLog
+    compile 'org.geotools:gt-wms:18.1', noLog
+    compile 'org.geotools:gt-wmts:18.1', noLog
+    compile 'org.geotools:gt-epsg-hsql:18.1', noLog
   }
 }
 
