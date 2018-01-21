@@ -32,6 +32,8 @@ dependencies {
 }
 
 allprojects {
+  version 0.01
+
   apply plugin: 'java'
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
@@ -49,8 +51,8 @@ allprojects {
   apply plugin: 'org.jetbrains.intellij'
   intellij {
     pluginName 'geo-support'
-    version 'IU-173.4301.14'
-    type 'IU'
+    version 'IC-173.4301.14'
+    type 'IC'
   }
 
   apply plugin: 'idea'
@@ -90,3 +92,10 @@ task generateLexer(type: GenerateLexer) {
 
 compileJava.dependsOn generateLexer
 compileJava.dependsOn generateParser
+
+
+publishPlugin {
+  username project.properties.get("publish.user")
+  password project.properties.get("publish.password")
+  channels project.properties.get("publish.channel") ?: "nightly"
+}

@@ -3,3 +3,4 @@
 build/*
 staging/*
 main/gen/*
+gradle.properties

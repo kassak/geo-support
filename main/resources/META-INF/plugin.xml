@@ -1,7 +1,8 @@
 <idea-plugin url="https://github.com/kassak/geo-support">
   <id>com.github.kassak.geo-support</id>
   <name>geo-support</name>
-  <description>Support of geographic data (WKT, WKB, ...)</description>
+  <description>Support of geographic data (WKT ...)</description>
+  <vendor url="https://github.com/kassak"/>
 
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="com.github.kassak.geo.wkt.WktFileType$Factory"/>
@@ -10,7 +11,7 @@
     <lang.syntaxHighlighterFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktSyntaxHighlighter$Factory"/>
     <highlightUsagesHandlerFactory implementation="com.github.kassak.geo.wkt.WktSubPrimitiveHighlighting$Factory"/>
     <lang.psiStructureViewFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktStructureViewModel$Factory"/>
-    <toolWindow id="Map Viewer" anchor="bottom"  factoryClass="com.github.kassak.geo.MapToolWindowFactory"/>
     <lang.documentationProvider language="WKT" implementationClass="com.github.kassak.geo.wkt.WktDocumentationProvider"/>
+    <!-- toolWindow id="Map Viewer" anchor="bottom"  factoryClass="com.github.kassak.geo.MapToolWindowFactory"/ -->
   </extensions>
 </idea-plugin>
