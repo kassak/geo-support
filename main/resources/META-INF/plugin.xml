@@ -11,5 +11,6 @@
     <highlightUsagesHandlerFactory implementation="com.github.kassak.geo.wkt.WktSubPrimitiveHighlighting$Factory"/>
     <lang.psiStructureViewFactory language="WKT" implementationClass="com.github.kassak.geo.wkt.WktStructureViewModel$Factory"/>
     <toolWindow id="Map Viewer" anchor="bottom"  factoryClass="com.github.kassak.geo.MapToolWindowFactory"/>
+    <lang.documentationProvider language="WKT" implementationClass="com.github.kassak.geo.wkt.WktDocumentationProvider"/>
   </extensions>
 </idea-plugin>
