@@ -4,6 +4,9 @@
   <description>Support of geographic data (WKT ...)</description>
   <vendor url="https://github.com/kassak"/>
 
+  <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.platform</depends>
+
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="com.github.kassak.geo.wkt.WktFileType$Factory"/>
     <lang.parserDefinition language="WKT" implementationClass="com.github.kassak.geo.wkt.WktParserDefinition"/>
