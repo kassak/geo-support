@@ -32,7 +32,7 @@ dependencies {
 }
 
 allprojects {
-  version 0.01
+  version 0.02
 
   apply plugin: 'java'
   sourceCompatibility = 1.8
@@ -57,7 +57,7 @@ allprojects {
 
   patchPluginXml {
     sinceBuild '173'
-    untilBuild '182'
+    untilBuild '183'
   }
 
   apply plugin: 'idea'
@@ -102,5 +102,5 @@ compileJava.dependsOn generateParser
 publishPlugin {
   username project.properties.get("publish.user")
   password project.properties.get("publish.password")
-  channels project.properties.get("publish.channel") ?: "nightly"
+  channels project.properties.get("publish.channel") ?: "Stable"
 }

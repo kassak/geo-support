@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="LanguageInjectionConfiguration">
+  <injection language="WKT" injector-id="sql">
+    <display-name>Geo Database</display-name>
+    <place><![CDATA[sqlElement().functionArgument(0, sqlFunctionCall().name("ST_GeomFromText", "ST_GeometryFromText", "ST_GeomFromEWKT", "ST_GeogFromText",
+      "ST_GeographyFromText", "ST_GeomCollFromText", "ST_BdPolyFromText", "ST_BdMPolyFromText", "ST_LineFromText", "ST_MLineFromText", "ST_MPointFromText", "ST_MPolyFromText", "ST_PointFromText", "ST_PolygonFromText", "ST_WKTToSQL").params(sqlExpressions().count(1, 2)))]]></place>
+  </injection>
+</component>
