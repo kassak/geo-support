@@ -32,7 +32,7 @@ dependencies {
 }
 
 allprojects {
-  version 0.02
+  version '0.02.1'
 
   apply plugin: 'java'
   sourceCompatibility = 1.8
@@ -51,13 +51,13 @@ allprojects {
   apply plugin: 'org.jetbrains.intellij'
   intellij {
     pluginName 'geo-support'
-    version 'IC-173.4301.14'
+    version 'IC-182.2574.2'
     type 'IC'
   }
 
   patchPluginXml {
-    sinceBuild '173'
-    untilBuild '183'
+    sinceBuild '182.2574'
+    untilBuild '193'
   }
 
   apply plugin: 'idea'

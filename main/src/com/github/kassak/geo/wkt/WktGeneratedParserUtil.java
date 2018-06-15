@@ -5,7 +5,6 @@ import com.intellij.lang.LighterASTNode;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.parser.GeneratedParserUtilBase;
 import com.intellij.openapi.util.Key;
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import gnu.trove.TByteArrayList;
@@ -31,8 +30,10 @@ public class WktGeneratedParserUtil extends GeneratedParserUtilBase {
   public static boolean parseUnknownIdentifier(PsiBuilder builder, int level) {
     if (builder.getTokenType() == WktTypes.IDENT
       && builder.lookAhead(1) == WktTypes.LPAREN) {
-      String messageText = ErrorState.get(builder).getExpectedText(builder) + " got " + builder.getTokenText();
-      builder.error(messageText);
+      StringBuilder expected = new StringBuilder();
+      ErrorState.get(builder).appendExpected(expected, builder.rawTokenIndex(), true);
+      expected.append(" expected, got ").append(builder.getTokenText());
+      builder.error(expected.toString());
       builder.advanceLexer();
       return true;
     }
@@ -78,10 +79,11 @@ public class WktGeneratedParserUtil extends GeneratedParserUtilBase {
             else {
               marker = builder.mark();
             }
-            String expectedText = ErrorState.get(builder).getExpectedText(builder);
-            expectedText = StringUtil.trimEnd(expectedText, ", ");
+            StringBuilder expected = new StringBuilder();
+            ErrorState.get(builder).appendExpected(expected, builder.rawTokenIndex(), true);
+            expected.append(" expected");
             skipCurrent(builder, level);
-            marker.error(expectedText);
+            marker.error(expected.toString());
           }
           res = true;
         }
